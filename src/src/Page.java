@@ -1,13 +1,13 @@
 /**
  * Created by miteyan on 05/09/2016.
  */
-public class RSSitem {
+public class Page {
 
     private String title;
     private String link;
     private String description;
 
-    public RSSitem(String title, String description, String link) {
+    public Page(String title, String description, String link) {
         this.title = title;
         this.description = description;
         this.link = link;
