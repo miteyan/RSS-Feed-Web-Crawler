@@ -13,6 +13,10 @@ public class RSSitem {
         this.link = link;
     }
 
+    public RSSitem(String title) {
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }
