@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Created by miteyan on 05/09/2016.
@@ -63,35 +62,33 @@ public class Crawl {
 
     public static void print(ArrayList<String> a) {
         for (int i = 0; i<a.size(); i++) {
-            System.out.println(a.get(i));
+            System.out.println(i + " " +a.get(i));
         }
     }
+
+
+    public static ArrayList  trimPage(String url, String keyword1, String keyword2) throws IOException {
+        ArrayList<String> x = save(url);
+        System.out.println(x.contains(keyword1));
+        int f = x.indexOf(keyword1);
+        System.out.println(x.contains(keyword2));
+        int l = x.indexOf(keyword2);
+        System.out.println(f + " " + l);
+        int size = x.size();
+        for (int i = 0; i<size-l; i++){
+            x.remove(l);
+        }
+        for (int i = 0; i<f; i++){
+            x.remove(0);
+        }
+        return x;
+    }
+
     public static void main (String[] args) throws IOException {
         String url = "http://miteyan.com";
-
-        ArrayList<String> x = save(url);
-        System.out.println(x.contains("<!-- Portfolio Section -->"));
-        print(save(url));
-
-//        printPage(url);
-//        printPage(trimPage(url));
-
-
+        String keyword1 = "<!-- Portfolio Section -->";
+        String keyword2 = "<!-- Experience Section -->";
+        ArrayList<String> x = trimPage(url,keyword1,keyword2);
+        print(x);
     }
-
-    public static String trimPage(String url) throws IOException {
-        String page = savePage(url);
-        String line = "";
-        String trimmed = "";
-        Scanner scanner = new Scanner(page);
-        while (scanner.hasNext()) {
-            System.out.println("X");
-            while ( (line = scanner.nextLine()) !="<!-- Portfolio Section -->") {
-                System.out.println("Not found");
-            }
-            trimmed +=scanner.nextLine();
-        }
-        return trimmed;
-    }
-
 }
