@@ -13,8 +13,8 @@ public class RSSitem {
         this.link = link;
     }
 
-    public RSSitem(String title) {
-        this.title = title;
+    public RSSitem(String description) {
+        this.description = description;
     }
 
     public String getTitle() {
@@ -37,8 +37,8 @@ public class RSSitem {
         return link;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setLink(int index) {
+       this.link = "http://miteyan.com/#prettyPhoto/" +Integer.toString(index);
     }
 
 }

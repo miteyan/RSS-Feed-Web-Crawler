@@ -9,7 +9,11 @@ import java.util.ArrayList;
  */
 public class Crawl {
 
-    static ArrayList<RSSitem> items = new ArrayList<RSSitem>();
+    private static ArrayList<RSSitem> items = new ArrayList<RSSitem>();
+
+    public ArrayList<RSSitem> getItems() {
+        return items;
+    }
 
     public static ArrayList<String > save(String URL) throws IOException {
         String line ="", all = "";
@@ -60,18 +64,32 @@ public class Crawl {
 
     public static void crawl(ArrayList<String> lines) {
         int size = lines.size();
+        int index = 0;
         String line = "";
         for (int i = 0 ; i < size ; i++ ) {
             line = lines.get(i);
+
+            if (line.contains("title=")) {
+                System.out.println("DESCRIPTION ADDED " +i);
+                String desc = line.trim();
+                String sub = desc.substring(desc.indexOf("title=\""), desc.indexOf("\" rel")).substring(7);
+                items.add(new RSSitem(sub));
+            }
+
             if (line.contains("<h4>")){
+                System.out.println("TITLE ADDED " +i);
+
 //                System.out.println("h4 "+i);
-                String title = line.trim().substring(4,line.trim().length()-5);
-                System.out.println(line.trim().substring(4,line.trim().length()-5));
-                items.add(new RSSitem(title));
+                String title = line.trim().substring(4, line.trim().length() - 5);
+//                System.out.println(line.trim().substring(4,line.trim().length()-5));
+                if (items.size()!=0){
+                    items.get(index).setTitle(title);
+                    items.get(index).setLink(index);
+                    index++;
+                }
             }
-            if (line.contains("title")) {
-//                System.out.println("title " +i);
-            }
+
+
         }
     }
 
@@ -83,8 +101,10 @@ public class Crawl {
         String keyword2 = "<!-- Experience Section -->";
         ArrayList<String> x = trimPage(url,keyword1,keyword2);
         print(x);
-
         crawl(x);
-
+        System.out.println(items.size());
+        for (int i =0 ; i<items.size(); i++) {
+            System.out.println("Title " + items.get(i).getTitle() + " Description " + items.get(i).getDescription()+ " Link "+ items.get(i).getLink());
+        }
     }
 }

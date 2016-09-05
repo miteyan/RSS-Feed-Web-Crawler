@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by miteyan on 05/09/2016.
  */
@@ -5,9 +7,12 @@ public class RSSfeed {
 
 
 
-    public  RSSfeed(Page p, RSSitem i){
+    public  RSSfeed(Page p,ArrayList<RSSitem> items){
         addChannel(p);
-        additem(i);
+
+        for (int i =0 ; i<items.size(); i++) {
+            additem(items.get(i));
+        }
         finish();
     }
 
