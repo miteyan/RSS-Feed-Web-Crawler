@@ -17,6 +17,7 @@ public class Crawl {
             input = new BufferedReader(new InputStreamReader(url.openStream()));
 
             while ( (line = input.readLine()) !=null) {
+                all+="\n";
                 all +=line;
             }
 
@@ -29,8 +30,12 @@ public class Crawl {
         return all;
     }
 
+    public static void printPage(String url) throws IOException {
+        System.out.println(savePage(url));
+    }
+
     public static void main (String[] args) throws IOException {
-        System.out.println(savePage("http://miteyan.com"));
+        printPage("http://miteyan.com");
     }
 
 }
